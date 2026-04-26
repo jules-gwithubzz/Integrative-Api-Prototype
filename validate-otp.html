@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Validate OTP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="center-screen">
+  <div class="card">
+    <div class="brand">🔐 OTP Verification</div>
+    <h1>Validate OTP</h1>
+    <p class="muted">
+      Code sent to: <strong id="otpTarget"></strong>
+    </p>
+
+    <div class="success">Prototype OTP: <strong>123456</strong></div>
+
+    <div class="otp-box">
+      <input maxlength="1" class="otp">
+      <input maxlength="1" class="otp">
+      <input maxlength="1" class="otp">
+      <input maxlength="1" class="otp">
+      <input maxlength="1" class="otp">
+      <input maxlength="1" class="otp">
+    </div>
+
+    <button class="btn primary" onclick="validateOtp()">Verify OTP</button>
+    <p id="message" class="muted center"></p>
+<script src="assets/app.js"></script>
+</body>
+</html>

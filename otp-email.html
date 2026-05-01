@@ -2,24 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Send OTP Email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send OTP via Email — RepoHive</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
-<div class="center-screen">
-  <div class="card">
-    <div class="brand">📧 Email Verification</div>
-    <h1>Send OTP to Email</h1>
-    <p class="muted">Enter your email address to receive a 6-digit code.</p>
+  <div class="center-screen">
+    <div class="card">
+      <div class="brand">📧 Email Verification</div>
+      <h1>Send OTP to Email</h1>
+      <p class="muted">Enter your email address to receive a 6-digit code.</p>
 
-    <label>Email Address</label>
-    <input id="email" type="email" placeholder="example@company.com">
+      <label>Email Address</label>
+      <input id="email" type="email" placeholder="example@company.com">
 
-    <button class="btn primary" onclick="sendEmailOtp()">Send OTP</button>
-    <a class="link" href="index.html">Back</a>
-<script src="assets/app.js"></script>
+      <button class="btn primary" onclick="sendEmailOtp()">Send OTP</button>
+      <a class="link" href="index.html">← Back to Hub</a>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+
 </body>
 </html>

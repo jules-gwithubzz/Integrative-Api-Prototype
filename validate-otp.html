@@ -2,34 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Validate OTP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validate OTP — RepoHive</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
-<div class="center-screen">
-  <div class="card">
-    <div class="brand">🔐 OTP Verification</div>
-    <h1>Validate OTP</h1>
-    <p class="muted">
-      Code sent to: <strong id="otpTarget"></strong>
-    </p>
+  <div class="center-screen">
+    <div class="card">
+      <div class="brand">🔐 OTP Verification</div>
+      <h1>Validate OTP</h1>
+      <p class="muted">
+        Code sent to: <strong id="otpTarget"></strong>
+      </p>
 
-    <div class="success">Prototype OTP: <strong>123456</strong></div>
+      <div class="prototype-note">
+        💡 Prototype OTP: <strong>123456</strong>
+      </div>
 
-    <div class="otp-box">
-      <input maxlength="1" class="otp">
-      <input maxlength="1" class="otp">
-      <input maxlength="1" class="otp">
-      <input maxlength="1" class="otp">
-      <input maxlength="1" class="otp">
-      <input maxlength="1" class="otp">
+      <div class="otp-box">
+        <input maxlength="1" class="otp" inputmode="numeric">
+        <input maxlength="1" class="otp" inputmode="numeric">
+        <input maxlength="1" class="otp" inputmode="numeric">
+        <input maxlength="1" class="otp" inputmode="numeric">
+        <input maxlength="1" class="otp" inputmode="numeric">
+        <input maxlength="1" class="otp" inputmode="numeric">
+      </div>
+
+      <button class="btn primary" onclick="validateOtp()">Verify OTP</button>
+      <p id="message" style="display:none;text-align:center;margin-top:12px;"></p>
+
+      <a class="link" href="index.html">← Back to Hub</a>
     </div>
+  </div>
 
-    <button class="btn primary" onclick="validateOtp()">Verify OTP</button>
-    <p id="message" class="muted center"></p>
-<script src="assets/app.js"></script>
+  <script src="assets/app.js"></script>
+
 </body>
 </html>

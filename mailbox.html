@@ -2,68 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{Rename} Mailbox</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mailbox — RepoHive</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
-<div class="mailbox">
+  <div class="mailbox">
 
-  <aside class="sidebar">
-    <div class="brand white">🐝 {Rename}</div>
+    <aside class="sidebar">
+      <div class="brand white">🐝 RepoHive</div>
 
-    <button class="compose-btn" onclick="openCompose()">+ Compose</button>
+      <button class="compose-btn" onclick="openCompose()">✦ Compose</button>
 
-    <a class="menu active" onclick="showInbox()">Inbox <span>3</span></a>
-    <a class="menu" onclick="showSent()">Sent <span id="sentCount">0</span></a>
-    <a class="menu">Drafts <span>0</span></a>
-    <a class="menu">Archived <span>4</span></a>
-  </aside>
+      <a class="menu active" onclick="showInbox(event)">Inbox <span>3</span></a>
+      <a class="menu" onclick="showSent(event)">Sent <span id="sentCount">0</span></a>
+      <a class="menu">Drafts <span>0</span></a>
+      <a class="menu">Archived <span>4</span></a>
 
-  <main class="main">
-    <header class="topbar">
-      <div>
-        <h2 id="mailTitle">Inbox</h2>
-        <small id="userEmail">Verified User</small>
+      <div style="margin-top:auto;padding-top:24px;">
+        <a class="menu" href="ai-chatbot.html">🤖 AI Assistant</a>
+        <a class="menu" href="index.html">← Back to Hub</a>
       </div>
-      <input id="searchMail" placeholder="Search mail..." onkeyup="filterMail()">
-    </header>
+    </aside>
 
-    <section class="mail-area">
-      <div id="mailList" class="mail-list"></div>
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h2 id="mailTitle">Inbox</h2>
+          <small id="userEmail">Verified User</small>
+        </div>
+        <input id="searchMail" placeholder="Search mail…" onkeyup="filterMail()">
+        <div class="topbar-actions">
+          <span class="topbar-chip" id="userEmailDisplay">User</span>
+        </div>
+      </header>
 
-      <div class="preview">
-        <h2 id="previewTitle">Select an email</h2>
-        <p id="previewMeta" class="muted"></p>
-        <p id="previewBody"></p>
-      </div>
-    </section>
-  </main>
-</div>
+      <section class="mail-area">
+        <div id="mailList" class="mail-list"></div>
 
-<div id="composeModal" class="modal">
-  <div class="modal-card">
-    <button class="close" onclick="closeCompose()">×</button>
-    <h2>Compose Email</h2>
+        <div class="preview">
+          <h2 id="previewTitle">Select an email</h2>
+          <p id="previewMeta" class="muted"></p>
+          <p id="previewBody"></p>
+        </div>
+      </section>
+    </main>
 
-    <label>To</label>
-    <input id="composeTo" type="email" placeholder="recipient@email.com">
-
-    <label>Subject</label>
-    <input id="composeSubject" type="text" placeholder="Email subject">
-
-    <label>Message</label>
-    <textarea id="composeBody" placeholder="Write your message..."></textarea>
-
-    <button class="btn primary" onclick="sendEmail()">Send Email</button>
   </div>
-</div>
 
-<script src="assets/app.js"></script>
-<script>
-  loadMailbox();
-</script>
+  <div id="composeModal" class="modal">
+    <div class="modal-card">
+      <button class="close" onclick="closeCompose()">×</button>
+      <h2>New Message</h2>
+      <p class="muted" style="margin-bottom:0">Compose and send an email</p>
+
+      <label>To</label>
+      <input id="composeTo" type="email" placeholder="recipient@email.com">
+
+      <label>Subject</label>
+      <input id="composeSubject" type="text" placeholder="Enter a subject…">
+
+      <label>Message</label>
+      <textarea id="composeBody" placeholder="Write your message…"></textarea>
+
+      <button class="btn primary" onclick="sendEmail()">Send Message</button>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script>loadMailbox();</script>
+
 </body>
 </html>

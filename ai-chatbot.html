@@ -2,35 +2,148 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{Rename} AI Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chatbot — RepoHive</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
-<div class="chatbot-only-page">
-  <main class="chat-panel">
-    <header class="chat-header">
-      <div class="ai-orb">🤖</div>
-      <div>
-        <h2>{Rename} AI Assistant</h2>
-        <small>Online • Ready to help</small>
-      </div>
-    </header>
+  <div class="chatbot-only-page">
+    <main class="chat-panel">
 
-    <section class="chat-window" id="chatWindow">
-      <div class="chat-message bot show">
+      <header class="chat-header">
+        <div class="ai-orb">🤖</div>
+        <div>
+          <h2>RepoHive AI Assistant</h2>
+          <small>● Online · Ready to help</small>
+        </div>
+        <a href="index.html">← Hub</a>
+      </header>
+
+      <section class="chat-window" id="chatWindow">
+        <div class="chat-message bot">
+          <div class="avatar">🤖</div>
+          <div class="bubble">
+            Hi! I'm your RepoHive AI Assistant, powered by Claude. I can help with your mailbox, OTP verification, or anything else. What do you need?
+          </div>
+        </div>
+      </section>
+
+      <div class="quick-prompts">
+        <button onclick="quickAsk('Summarize my inbox')">Summarize inbox</button>
+        <button onclick="quickAsk('Help me compose a professional email')">Compose email</button>
+        <button onclick="quickAsk('How does OTP verification work?')">How OTP works</button>
+        <button onclick="quickAsk('What is RepoHive?')">About RepoHive</button>
+        <button onclick="quickAsk('Show my sent emails')">Sent emails</button>
+      </div>
+
+      <footer class="chat-input-bar">
+        <input id="chatInput" placeholder="Ask me anything…" onkeydown="handleChatKey(event)">
+        <button onclick="sendChat()">Send →</button>
+      </footer>
+
+    </main>
+  </div>
+
+  <script>
+    /* ── State ── */
+    const chatHistory = [];
+
+    function quickAsk(text) {
+      document.getElementById('chatInput').value = text;
+      sendChat();
+    }
+
+    function handleChatKey(e) {
+      if (e.key === 'Enter') sendChat();
+    }
+
+    async function sendChat() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
+      if (!message) return;
+
+      appendMessage(message, 'user');
+      input.value = '';
+      showTyping();
+
+      chatHistory.push({ role: 'user', content: message });
+
+      try {
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 1000,
+            system: `You are RepoHive AI, a concise and friendly assistant built into the RepoHive app.
+RepoHive is a prototype workspace that includes:
+- OTP verification via SMS and email (prototype code is 123456)
+- A mailbox with inbox, sent, drafts, and archived folders
+- Google login
+- This AI chatbot
+
+The user's inbox has 3 emails: a Welcome email from the RepoHive Team, an OTP Verification Success email from Security, and a Project Workspace Invitation from Douglas Hill.
+
+Keep responses short and plain — 1 to 3 sentences unless more detail is clearly needed. No markdown formatting.`,
+            messages: chatHistory
+          })
+        });
+
+        const data = await response.json();
+        removeTyping();
+
+        const reply = data.content?.[0]?.text ?? 'Sorry, I could not get a response. Please try again.';
+        chatHistory.push({ role: 'assistant', content: reply });
+        appendMessage(reply, 'bot');
+
+      } catch (err) {
+        removeTyping();
+        appendMessage('Connection error. Please check your network and try again.', 'bot');
+      }
+    }
+
+    function appendMessage(text, sender) {
+      const win = document.getElementById('chatWindow');
+      const wrapper = document.createElement('div');
+      wrapper.className = `chat-message ${sender}`;
+      wrapper.innerHTML = `
+        <div class="avatar">${sender === 'user' ? '👤' : '🤖'}</div>
+        <div class="bubble">${escapeHtml(text)}</div>
+      `;
+      win.appendChild(wrapper);
+      win.scrollTop = win.scrollHeight;
+    }
+
+    function showTyping() {
+      const win = document.getElementById('chatWindow');
+      const el = document.createElement('div');
+      el.className = 'chat-message bot';
+      el.id = 'typingIndicator';
+      el.innerHTML = `
         <div class="avatar">🤖</div>
         <div class="bubble">
-          Hi! I'm your {Rename} AI Assistant. How can I help you today?
+          <div class="typing"><span></span><span></span><span></span></div>
         </div>
-      </div>
-    </section>
+      `;
+      win.appendChild(el);
+      win.scrollTop = win.scrollHeight;
+    }
 
-    <footer class="chat-input-bar">
-      <input id="chatInput" placeholder="Type your message..." onkeydown="handleChatKey(event)">
-      <button onclick="sendChat()">Send</button>
-<script src="assets/app.js"></script>
+    function removeTyping() {
+      document.getElementById('typingIndicator')?.remove();
+    }
+
+    function escapeHtml(text) {
+      const d = document.createElement('div');
+      d.textContent = text;
+      return d.innerHTML;
+    }
+  </script>
+
 </body>
 </html>
+

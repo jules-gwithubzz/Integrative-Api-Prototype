@@ -2,24 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Send OTP Phone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send OTP via Phone — RepoHive</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
-<div class="center-screen">
-  <div class="card">
-    <div class="brand">📱 Phone Verification</div>
-    <h1>Send OTP to Phone</h1>
-    <p class="muted">Enter your phone number to receive a 6-digit code.</p>
+  <div class="center-screen">
+    <div class="card">
+      <div class="brand">📱 Phone Verification</div>
+      <h1>Send OTP to Phone</h1>
+      <p class="muted">Enter your phone number to receive a 6-digit code.</p>
 
-    <label>Phone Number</label>
-    <input id="phone" type="tel" placeholder="+63 900 000 0000">
+      <label>Phone Number</label>
+      <input id="phone" type="tel" placeholder="+63 900 000 0000">
 
-    <button class="btn primary" onclick="sendPhoneOtp()">Send OTP</button>
-    <a class="link" href="index.html">Back</a>
-<script src="assets/app.js"></script>
+      <button class="btn primary" onclick="sendPhoneOtp()">Send OTP</button>
+      <a class="link" href="index.html">← Back to Hub</a>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+
 </body>
 </html>

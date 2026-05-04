@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RepoHive — Sign in with Google</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .google-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--indigo-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      border: 2px solid var(--indigo-muted);
+    }
+    .google-avatar img {
+      width: 32px;
+      height: 32px;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-700);
+      margin-bottom: 4px;
+      display: block;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+    }
+    .input-wrap input {
+      padding-left: 40px;
+    }
+    .error-msg {
+      display: none;
+      font-size: 13px;
+      color: var(--red);
+      background: var(--red-soft);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      margin-bottom: 4px;
+    }
+    .divider-line {
+      border: none;
+      border-top: 1px solid var(--slate-200);
+      margin: 18px 0;
+    }
+    .back-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-400);
+      text-decoration: none;
+      margin-top: 16px;
+      transition: color var(--transition);
+    }
+    .back-link:hover { color: var(--indigo); }
+    .policy-note {
+      font-size: 11.5px;
+      color: var(--slate-400);
+      text-align: center;
+      line-height: 1.6;
+      margin-top: 14px;
+    }
+    .policy-note a { color: var(--indigo); text-decoration: none; }
+    .policy-note a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="center-screen">
+    <div class="card">
+      <div class="brand">🐝 RepoHive App Hub</div>
+
+      <div class="google-avatar">
+        <img src="./assets/Google_Favicon_2025.svg.webp" alt="Google">
+      </div>
+
+      <h1>Sign in</h1>
+      <p class="muted">Enter your Google account credentials to continue.</p>
+
+      <div id="errorMsg" class="error-msg">Incorrect email or password. Please try again.</div>
+
+      <div class="field-group">
+        <div>
+          <label class="field-label" for="googleEmail">Email address</label>
+          <div class="input-wrap">
+            <span class="input-icon">📧</span>
+            <input
+              type="email"
+              id="googleEmail"
+              placeholder="example@gmail.com"
+              autocomplete="email"
+              onkeydown="if(event.key==='Enter')document.getElementById('googlePassword').focus()"
+            >
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="googlePassword">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input
+              type="password"
+              id="googlePassword"
+              placeholder="Your password"
+              autocomplete="current-password"
+              onkeydown="if(event.key==='Enter')submitGoogleLogin()"
+            >
+          </div>
+        </div>
+      </div>
+
+      <button class="btn google" style="margin-top:18px;" onclick="submitGoogleLogin()">
+        <img src="./assets/Google_Favicon_2025.svg.webp" alt="Google" height="20">
+        Sign in with Google
+      </button>
+
+      <hr class="divider-line">
+
+      <p class="policy-note">
+        By signing in, you agree to RepoHive's
+        <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+      </p>
+
+      <a class="back-link" href="index.html">← Back to App Hub</a>
+    </div>
+  </div>
+
+  <script>
+    function submitGoogleLogin() {
+      const email = document.getElementById('googleEmail').value.trim();
+      const password = document.getElementById('googlePassword').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (!email || !password) {
+        errorMsg.textContent = 'Please enter your email and password.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      if (!email.includes('@')) {
+        errorMsg.textContent = 'Please enter a valid email address.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      // Prototype: accept any well-formed email + any non-empty password
+      errorMsg.style.display = 'none';
+
+      localStorage.setItem('verified_user', email);
+      localStorage.setItem('auth_provider', 'google');
+      localStorage.setItem('user_name', email.split('@')[0]);
+
+      // Brief visual feedback before redirect
+      const btn = document.querySelector('.btn.google');
+      btn.innerHTML = '✓ &nbsp;Signing in…';
+      btn.style.opacity = '0.8';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        window.location.href = 'mailbox.html';
+      }, 800);
+    }
+  </script>
+
+</body>
+</html>

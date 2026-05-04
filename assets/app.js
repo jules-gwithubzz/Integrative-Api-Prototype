@@ -8,10 +8,7 @@ const prototypeOtp = '123456';
 
 /* ── Auth ── */
 function loginWithGoogle() {
-  localStorage.setItem('verified_user', 'google.user@gmail.com');
-  localStorage.setItem('auth_provider', 'google');
-  localStorage.setItem('user_name', 'Google User');
-  window.location.href = 'mailbox.html';
+  window.location.href = 'google-login.html';
 }
 
 /* ── OTP: Send ── */
